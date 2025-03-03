@@ -14,15 +14,19 @@ class GildedRose {
     }
 
     private void handleQuality(Item item) {
-        if (item.name.equals("Aged Brie")) {
-            handleBrie(item);
-        } else if (item.name.equals("Backstage passes")) {
-            handleBackstage(item);
-        } else if (item.name.equals("Sulfuras")) {
-            handleSulfuras(item);
-        } else {
-            handleOther(item);
-
+        switch (item.name) {
+            case "Aged Brie":
+                handleBrie(item);
+                break;
+            case "Backstage passes":
+                handleBackstage(item);
+                break;
+            case "Sulfuras":
+                handleSulfuras(item);
+                break;
+            default:
+                handleOther(item);
+                break;
         }
     }
 
