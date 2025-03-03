@@ -1,82 +1,39 @@
 package com.gildedrose;
 
 class GildedRose {
-    Item[] items;
+    StockItem[] items;
 
     public GildedRose(Item[] items) {
-        this.items = items;
+        StockItem[] stockItems = new StockItem[items.length];
+        for (int i = 0; i < items.length; i++) {
+            stockItems[i] = factoItem(items[i]);
+        }
+        this.items = stockItems;
     }
 
     public void updateQuality() {
-        for (Item item : items) {
+        for (StockItem item : items) {
             handleQuality(item);
         }
     }
 
-    private void handleQuality(Item item) {
+    private void handleQuality(StockItem item) {
+        item.updateQuality();
+    }
+
+    public StockItem factoItem(Item item) {
         switch (item.name) {
             case "Aged Brie":
-                handleBrie(item);
-                break;
+                return new Brie(item.sellIn, item.quality);
             case "Backstage passes":
-                handleBackstage(item);
-                break;
+                return new Backstage(item.sellIn, item.quality);
             case "Sulfuras":
-                handleSulfuras(item);
-                break;
+                return new Sulfuras(item.sellIn, item.quality);
+            case "Conjured":
+                return new Conjured(item.sellIn, item.quality);
             default:
-                handleOther(item);
-                break;
+                return new Other(item.name, item.sellIn, item.quality);
         }
-    }
-
-    private void handleBrie(Item item) {
-        if (item.name.equals("Aged Brie")) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-                item.sellIn = item.sellIn - 1;
-                if (item.quality < 50 && item.sellIn < 0) {
-                    item.quality = item.quality + 1;
-                }
-            }
-        }
-    }
-
-    private void handleBackstage(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-
-            if (item.sellIn < 11) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-                if (item.sellIn < 6) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
-            }
-        }
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            item.quality = 0;
-        }
-    }
-
-    private void handleSulfuras(Item item) {
-    }
-
-    private void handleOther(Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-            item.sellIn = item.sellIn - 1;
-            if (item.sellIn < 0) {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
-            }
-        }
-
     }
 }
 

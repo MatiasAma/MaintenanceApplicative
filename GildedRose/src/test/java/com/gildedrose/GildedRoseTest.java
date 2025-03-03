@@ -142,4 +142,33 @@ class GildedRoseTest {
         assertEquals(60, app.items[0].quality);
     }
 
+    @Test
+    void conjuredBeforeSellIn() {
+        Item[] items = new Item[] { new Item("Conjured", 10, 40) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(38, app.items[0].quality);
+    }
+
+    @Test
+    void conjuredAfterSellIn() {
+        Item[] items = new Item[] { new Item("Conjured", 0, 40) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(36, app.items[0].quality);
+    }
+
+    @Test
+    void conjuredQualityLow() {
+        Item[] items = new Item[] { new Item("Conjured", 5, 0) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
+    void forTotalCoverage() {
+        Item items =  new Item("foo", 5, 0);
+        assertEquals("foo, 5, 0", items.toString());
+    }
 }
