@@ -18,28 +18,11 @@ class GildedRose {
             handleBrie(item);
         } else if (item.name.equals("Backstage passes")) {
             handleBackstage(item);
+        } else if (item.name.equals("Sulfuras")) {
+            handleSulfuras(item);
         } else {
-            if (item.quality > 0) {
-                if (!item.name.equals("Sulfuras")) {
-                    item.quality = item.quality - 1;
-                }
-            }
+            handleOther(item);
 
-            if (!item.name.equals("Sulfuras")) {
-                item.sellIn = item.sellIn - 1;
-            }
-
-            if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes")) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals("Sulfuras")) {
-                                item.quality = item.quality - 1;
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -56,35 +39,40 @@ class GildedRose {
     }
 
     private void handleBackstage(Item item) {
-        if (item.name.equals("Backstage passes")) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
 
-                if (item.name.equals("Backstage passes")) {
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
+            if (item.sellIn < 11) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1;
+                }
+                if (item.sellIn < 6) {
+                    if (item.quality < 50) {
+                        item.quality = item.quality + 1;
                     }
                 }
             }
         }
-        if (!item.name.equals("Sulfuras")) {
-            item.sellIn = item.sellIn - 1;
-        }
-
+        item.sellIn = item.sellIn - 1;
         if (item.sellIn < 0) {
-            if (item.name.equals("Backstage passes")) {
-                item.quality = item.quality - item.quality;
-            }
-
+            item.quality = 0;
         }
+    }
+
+    private void handleSulfuras(Item item) {
+    }
+
+    private void handleOther(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+            item.sellIn = item.sellIn - 1;
+            if (item.sellIn < 0) {
+                if (item.quality > 0) {
+                    item.quality = item.quality - 1;
+                }
+            }
+        }
+
     }
 }
 
