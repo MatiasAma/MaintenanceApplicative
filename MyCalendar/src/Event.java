@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 
 public class Event {
+    //TODO : supprimer cette class
     public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
     public String title;
     public String proprietaire;
