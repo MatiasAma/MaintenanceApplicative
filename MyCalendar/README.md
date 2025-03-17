@@ -28,8 +28,8 @@ On ne casses pas tout d'un coup, on essaie de faire d'abord un nettoyage progres
 
 ### Développement des nouvelles fonctionnalités guidé par les tests (TDD) :
 Chaque fonctionnalité doit être écrite en suivant strictement la démarche TDD :
-- Écrire d’abord un test qui échoue (rouge).
-- Implémenter le code nécessaire pour passer le test (vert).
+- Écrire d’abord un testCalendar qui échoue (rouge).
+- Implémenter le code nécessaire pour passer le testCalendar (vert).
 - Refactorer sans casser les tests précédents.
 
 ### Interdiction des primitives nues :
