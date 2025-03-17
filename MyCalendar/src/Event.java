@@ -32,6 +32,7 @@ public class Event {
         } else if (type.equals("PERIODIQUE")) {
             desc = "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
         }
+        
         return desc;
     }
 }
