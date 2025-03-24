@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        CalendarManager calendar = new CalendarManager();
+        /*CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
         boolean continuer = true;
@@ -259,6 +259,6 @@ public class Main {
             for (Event e : evenements) {
                 System.out.println("- " + e.description());
             }
-        }
+        }*/
     }
 }

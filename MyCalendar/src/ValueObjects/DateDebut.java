@@ -9,6 +9,14 @@ public final class DateDebut {
         this.dd = dd;
     }
 
+    public boolean isBefore(LocalDateTime d) {
+        return dd.isBefore(d);
+    }
+
+    public boolean isAfter(LocalDateTime d) {
+        return dd.isAfter(d);
+    }
+
     public LocalDateTime getDd() {
         return dd;
     }

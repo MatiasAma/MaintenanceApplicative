@@ -3,53 +3,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarManager {
-    public List<Event> events;
+    public List<Evenement> events;
 
     public CalendarManager() {
         this.events = new ArrayList<>();
     }
 
-    public void ajouterEvent(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                             String lieu, String participants, int frequenceJours) {
-        Event e = new Event(type, title, proprietaire, dateDebut, dureeMinutes, lieu, participants, frequenceJours);
+    public void ajouterPeriodique(String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes, int frequenceJours) {
+        Periodique e = EventFactory.createPeriodique(title, proprietaire, dateDebut, dureeMinutes, frequenceJours);
         events.add(e);
     }
 
-    public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        List<Event> result = new ArrayList<>();
-        for (Event e : events) {
-            if (e.type.equals("PERIODIQUE")) {
-                LocalDateTime temp = e.dateDebut;
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        result.add(e);
-                        break;
-                    }
-                    temp = temp.plusDays(e.frequenceJours);
-                }
-            } else if (!e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)) {
-                result.add(e);
-            }
+    public void ajouterRDVPerso(String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes) {
+        RDVPerso e = EventFactory.createRDVPerso(title, proprietaire, dateDebut, dureeMinutes);
+        events.add(e);
+    }
+
+    public void ajouterReunion(String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
+                               String lieu, String participants) {
+        Reunion e = EventFactory.createReunion(title, proprietaire, dateDebut, dureeMinutes,lieu,participants);
+        events.add(e);
+    }
+
+    public List<Evenement> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+        List<Evenement> result = new ArrayList<>();
+        for (Evenement e : events) {
+            result = e.isInPeriode(debut,fin,result);
         }
         return result;
     }
 
-    public boolean conflit(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.dureeMinutes);
-        LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.dureeMinutes);
-
-        if (e1.type.equals("PERIODIQUE") || e2.type.equals("PERIODIQUE")) {
-            return false; // Simplification abusive
-        }
-
-        if (e1.dateDebut.isBefore(fin2) && fin1.isAfter(e2.dateDebut)) {
-            return true;
-        }
-        return false;
+    public boolean conflit(Evenement e1, Evenement e2) {
+        return e1.conflit(e2);
     }
 
     public void afficherEvenements() {
-        for (Event e : events) {
+        for (Evenement e : events) {
             System.out.println(e.description());
         }
     }
