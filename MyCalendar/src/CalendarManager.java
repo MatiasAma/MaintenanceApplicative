@@ -25,6 +25,11 @@ public class CalendarManager {
         events.add(e);
     }
 
+    public void ajouterAnnuelle(String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes) {
+        Annuelle e = EventFactory.createAnnuelle(title, proprietaire, dateDebut, dureeMinutes);
+        events.add(e);
+    }
+
     public List<Evenement> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Evenement> result = new ArrayList<>();
         for (Evenement e : events) {

@@ -16,4 +16,8 @@ public class EventFactory {
         return new Reunion(Type.REUNION,new Title(title),new Proprietaire(proprietaire),new DateDebut(dateDebut),new DureeEvenement(dureeMinutes),new LieuEvenement(lieu), new  Participant(participants));
     }
 
+    static Annuelle createAnnuelle (String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes) {
+        return new Annuelle(Type.ANNUELLE,new Title(title),new Proprietaire(proprietaire),new DateDebut(dateDebut),new DureeEvenement(dureeMinutes));
+    }
+
 }
